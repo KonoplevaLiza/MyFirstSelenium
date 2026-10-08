@@ -4,19 +4,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.List;
+import java.time.Duration;
 
 public class BrowserDemo {
 
         public static void main (String[] args) {
             WebDriver driver = new ChromeDriver();
             try {
+                // 1. Ожидание ДО открытия страницы
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
                 //открываем сайт
                 driver.get("https://demoqa.com/text-box");
-                List<WebElement> labels = driver.findElements(By.cssSelector("label"));
 
-                System.out.println("Labels found: " + labels.size());
+                //ищем все подписи полей формы
+                List<WebElement> labels = driver.findElements(By.cssSelector("label"));
+                System.out.println("Найдено подписей: " + labels.size());
                 for (WebElement label : labels) {
-                    System.out.println(label.getText());
+                    System.out.println("- " + label.getText());
                 }
                 System.out.println("Title: " + driver.getTitle()); //вывод заголовка в консоль
 
